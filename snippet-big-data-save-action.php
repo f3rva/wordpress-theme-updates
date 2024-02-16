@@ -1,8 +1,8 @@
 function update_bigdata($post_id) {
 	error_log('START: update_bigdata');
 	
-    // Check if this is an autosave or revision
-    if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) {
+    // Check if this is an autosave or revision or it's not a post
+    if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id) || get_post_type($post_id) !== 'post') {
         return;
     }
     
