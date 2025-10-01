@@ -84,13 +84,7 @@ function update_bigdata($post_id) {
 		$big_data_id = json_decode($response_body, true)['id'];
 		error_log('after add, id: ' . $big_data_id);
 		
-		// temporarily remove the save_post hook to avoid infinite loop
-		remove_action('save_post', 'update_bigdata');
-
 		update_field('big_data_id', $big_data_id, $post_id);
-
-		// re-add the save_post hook
-		add_action('save_post', 'update_bigdata');
 	}
 	else {
 		// otherwise refresh the workout
@@ -133,4 +127,4 @@ function update_bigdata($post_id) {
 	do_action('qm/stop', 'update_bigdata');
 	error_log('END: update_bigdata');
 }
-add_action('save_post', 'update_bigdata');
+add_action('acf/save_post', 'update_bigdata');
