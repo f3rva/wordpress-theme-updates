@@ -127,4 +127,4 @@ function update_bigdata($post_id) {
 	do_action('qm/stop', 'update_bigdata');
 	error_log('END: update_bigdata');
 }
-add_action('acf/save_post', 'update_bigdata');
+add_action('save_post', 'update_bigdata');
