@@ -24,6 +24,8 @@ function update_bigdata($post_id) {
 	$post_url = get_permalink($post);
 	$post_title = $post->post_title;
 	$post_slug = $post->post_name;
+	$post_author_id = $post->post_author;
+	$post_author_name = get_the_author_meta('display_name', $post_author_id);
 
 	// get the tags
 	$post_tags = get_the_terms($post_id, 'post_tag');
@@ -47,6 +49,7 @@ function update_bigdata($post_id) {
 	error_log('DEBUG: permalink: ' . $post_url);
 	error_log('DEBUG: post_name: ' . $post_slug);
 	error_log('DEBUG: post_title: ' . $post_title);
+	error_log('DEBUG: post_author_name: ' . $post_author_name);
 	error_log('DEBUG: post_tags: ' . print_r(array_column(array: $tag_data, column_key: 'name'), true));
 	error_log('DEBUG: workout_date_new: ' . $post_workout_date);
 	error_log('DEBUG: qic: ' . $post_qic);
@@ -65,6 +68,7 @@ function update_bigdata($post_id) {
 			'body' => wp_json_encode(array(
 				'title' => $post_title,
 				'url' => $post_url,
+				'author' => $post_author_name,
 				'slug' => $post_slug,
 				'body' => $post_body,
 				'workoutDate' => $post_workout_date,
@@ -98,6 +102,7 @@ function update_bigdata($post_id) {
 		        'workoutId' => intval($big_data_id),
 				'title' => $post_title,
 				'url' => $post_url,
+				'author' => $post_author_name,
 				'slug' => $post_slug,
 				'body' => $post_body,
 				'workoutDate' => $post_workout_date,
