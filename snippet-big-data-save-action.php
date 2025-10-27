@@ -19,7 +19,7 @@ function update_bigdata($post_id) {
 	}
     
 	// get the body so we can pass it to the API
-	$raw_post_body = get_the_content();
+	$raw_post_body = $post->post_content;
 	$post_body = apply_filters('the_content', $raw_post_body);
 	$post_url = get_permalink($post);
 	$post_title = $post->post_title;
