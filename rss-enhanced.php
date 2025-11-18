@@ -20,7 +20,7 @@ $new_domain = 'https://f3rva.org';
         xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
         xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
         <?php do_action('rss2_ns'); ?>>
-<channel>
+    <channel>
         <title><?php bloginfo_rss('name'); ?></title>
         <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
         <link><?php echo $new_domain ?></link>
@@ -29,10 +29,10 @@ $new_domain = 'https://f3rva.org';
         <language><?php echo get_option('rss_language'); ?></language>
         <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
         <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
-        <?php do_action('rss2_head'); ?>
+	
         <?php while(have_posts()) : the_post(); ?>
-                <item>
-                        <title><?php 
+        <item>
+            <title><?php 
     $content = get_the_title_rss();
     $posttag = "";
 	$posttags = get_the_tags();
@@ -46,7 +46,7 @@ $new_domain = 'https://f3rva.org';
 	
 	echo $content;
                         ?></title>
-                        <link><?php
+            <link><?php
     $workout_date = get_field('workout_date_new', get_the_ID());
 	$workout_url = '';
     
@@ -64,10 +64,10 @@ $new_domain = 'https://f3rva.org';
         echo $new_domain;
     }
 ?></link>
-                        <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
-                        <dc:creator><?php the_author(); ?></dc:creator>
-                        <guid isPermaLink="false"><?php the_guid(); ?></guid>
-                        <description><![CDATA[<?php
+            <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
+            <dc:creator><?php the_author(); ?></dc:creator>
+            <guid isPermaLink="false"><?php the_guid(); ?></guid>
+            <description><![CDATA[<?php
     $site_url = get_site_url();
 
 	// This regex finds URLs in href attributes that start with the site URL
@@ -79,9 +79,10 @@ $new_domain = 'https://f3rva.org';
 	$excerpt_replaced = preg_replace($pattern, $replacement, get_the_excerpt());
 	echo apply_filters( 'the_excerpt_rss', $excerpt_replaced );
 ?>]]></description>
-                        <?php rss_enclosure(); ?>
-                        <?php do_action('rss2_item'); ?>
-                </item>
+            <content:encoded><![CDATA[<?php
+    echo apply_filters( 'the_excerpt_rss', $excerpt_replaced );
+?>]]></content:encoded>
+        </item>
         <?php endwhile; ?>
 </channel>
 </rss>
