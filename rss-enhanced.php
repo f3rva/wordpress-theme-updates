@@ -79,9 +79,6 @@ $new_domain = 'https://f3rva.org';
 	$excerpt_replaced = preg_replace($pattern, $replacement, get_the_excerpt());
 	echo apply_filters( 'the_excerpt_rss', $excerpt_replaced );
 ?>]]></description>
-            <content:encoded><![CDATA[<?php
-    echo apply_filters( 'the_excerpt_rss', $excerpt_replaced );
-?>]]></content:encoded>
         </item>
         <?php endwhile; ?>
 </channel>
