@@ -47,21 +47,23 @@ $new_domain = 'https://f3rva.org';
 	echo $content;
                         ?></title>
             <link><?php
+    $slug = get_post_field('post_name', get_the_ID());
     $workout_date = get_field('workout_date_new', get_the_ID());
-	$workout_url = '';
+    $workout_url = '';
     
+    error_log('DEBUG: Processing workout with workout_date ('. $workout_date . ') and slug (' . $slug . ')');
+
     if ($workout_date) {
         // Create a DateTime object from the ACF field value.
         // Assumes the date is stored in a format PHP can understand (like Y-m-d).
         $date_obj = date_create($workout_date);
         if ($date_obj) {
             $date_path = date_format($date_obj, 'Y/m/d');
-            $slug = get_post_field('post_name', get_the_ID());
-			$workout_url = $new_domain . '/' . $date_path . '/' . $slug . '/';
+            $workout_url = $new_domain . '/' . $date_path . '/' . $slug . '/';
             echo esc_url($workout_url);
         } 
     } else {
-        echo $new_domain;
+        echo $new_domain . '/archives';
     }
 ?></link>
             <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
@@ -77,6 +79,7 @@ $new_domain = 'https://f3rva.org';
 	$replacement = '$1' . $workout_url . '$2';
 
 	$excerpt_replaced = preg_replace($pattern, $replacement, get_the_excerpt());
+    //error_log('DEBUG: pattern: ('. $pattern . '), replacement: ('. $replacement . '), excerpt_replaced: ('. $excerpt_replaced . ')');
 	echo apply_filters( 'the_excerpt_rss', $excerpt_replaced );
 ?>]]></description>
         </item>
