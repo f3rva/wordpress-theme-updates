@@ -4,6 +4,7 @@ function update_bigdata($post_id) {
 	
 	//$api_host = 'http://localhost:9000';
 	$api_host = 'https://bigdata.brianbischoff.com';
+	$public_prefix = 'https://f3rva.org';
 
     // Check if this is an autosave or revision or it's not a post
     if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id) || get_post_type($post_id) !== 'post') {
@@ -21,7 +22,6 @@ function update_bigdata($post_id) {
 	// get the body so we can pass it to the API
 	$raw_post_body = $post->post_content;
 	$post_body = apply_filters('the_content', $raw_post_body);
-	$post_url = get_permalink($post);
 	$post_title = $post->post_title;
 	$post_slug = $post->post_name;
 	$post_author_id = $post->post_author;
@@ -46,7 +46,11 @@ function update_bigdata($post_id) {
 	$post_pax = get_field('the_pax', $post_id);
 	$big_data_id = get_field('big_data_id', $post_id);
 	
-	error_log('DEBUG: permalink: ' . $post_url);
+	// construct the public URL
+	$dt = DateTime::createFromFormat('Ymd', $post_workout_date);
+	$post_url = $public_prefix . '/' . $dt->format('Y/m/d') . '/' . $post_slug . '/';
+	
+	error_log('DEBUG: post_url: ' . $post_url);
 	error_log('DEBUG: post_name: ' . $post_slug);
 	error_log('DEBUG: post_title: ' . $post_title);
 	error_log('DEBUG: post_author_name: ' . $post_author_name);
