@@ -43,6 +43,8 @@ function update_bigdata($post_id) {
         return;
     }
 
+	$api_token = defined('F3RVA_API_BEARER_TOKEN') ? F3RVA_API_BEARER_TOKEN : 'abcd12345...';
+	
     error_log('START: update_bigdata for post ' . $post_id);
     do_action('qm/start', 'update_bigdata');
 
@@ -116,7 +118,8 @@ function update_bigdata($post_id) {
             'timeout' => 15,
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Accept'       => 'application/json'
+                'Accept'       => 'application/json',
+				'Authorization' => 'Bearer ' . $api_token,
             ],
             'body'    => wp_json_encode($payload)
         ];
@@ -170,7 +173,8 @@ function update_bigdata($post_id) {
             'timeout' => 15,
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Accept'       => 'application/json'
+                'Accept'       => 'application/json',
+				'Authorization' => 'Bearer ' . $api_token,
             ],
             'body'    => wp_json_encode($payload)
         ];
