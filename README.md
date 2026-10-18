@@ -1,8 +1,25 @@
 # WordPress Theme Updates & Snippets (`f3rva`)
 
-This repository contains the custom WordPress child theme, block editor scripts, and functional code snippets for the **F3 RVA** website (`f3rva.org` / `dev.f3rva.org`). 
+> [!WARNING]
+> ## ⚠️ DEPRECATED & NO LONGER IN USE
+>
+> **This repository and the legacy WordPress website (`f3rva.org`) are officially deprecated and decommissioned.**
+>
+> The F3 RVA digital platform has transitioned to a modern, decoupled architecture:
+> - **Frontend**: React SPA ([`f3rva-website`](https://github.com/f3rva/f3rva-website))
+> - **Backend API**: FastAPI REST service ([`f3rva-api`](https://github.com/f3rva/f3rva-api))
+>
+> **All code in this repository is preserved solely for historical and archival purposes.** No further updates, bug fixes, or deployments will be made here.
 
-It manages the backblast authoring pipeline, custom post validation, enhanced RSS feeds, and bidirectional data synchronization with the centralized backend API (**`f3rva-api`**).
+---
+
+> [!NOTE]
+> ### Historical Reference
+> The documentation below is retained for historical purposes to document how the WordPress-based backblast authoring pipeline, Gutenberg validation scripts, and data synchronization hooks operated prior to decommissioning.
+
+This repository contains the custom WordPress child theme, block editor scripts, and functional code snippets for the legacy **F3 RVA** WordPress website (`f3rva.org` / `dev.f3rva.org`). 
+
+It previously managed the backblast authoring pipeline, custom post validation, enhanced RSS feeds, and bidirectional data synchronization with the centralized backend API (**`f3rva-api`**).
 
 ---
 
@@ -84,7 +101,8 @@ wordpress-theme-updates/
 │   ├── validate-acf.php                # Enqueues editor validation script (child theme safe)
 │   ├── sanitize-slug.php               # Slug character cleaner
 │   ├── api-workout-date-slug.php       # Custom REST route for date+slug post lookup
-│   └── initialize-enhanced-rss-feed.php# Custom /feed/enhanced feed registration
+│   ├── initialize-enhanced-rss-feed.php# Custom /feed/enhanced feed registration
+│   └── frontend-redirect.php           # Deprecation redirect (301 to new site)
 └── themes/
     └── f3-rva/                         # Active child theme (Parent: Twenty Twenty-Five)
         ├── style.css                   # Theme metadata & child template link
@@ -107,6 +125,7 @@ wordpress-theme-updates/
 | [`snippet/sanitize-slug.php`](file:///Users/bbischoff/dev/f3/wordpress-theme-updates/snippet/sanitize-slug.php) | `sanitize_title` | Strips special characters from post slugs, enforcing lowercase alphanumeric characters and single hyphens. |
 | [`snippet/api-workout-date-slug.php`](file:///Users/bbischoff/dev/f3/wordpress-theme-updates/snippet/api-workout-date-slug.php) | `rest_api_init` | Registers `GET /wp-json/f3-data/v1/workout-slug-date/{slug}/{date}` for querying posts by slug and ACF `workout_date_new`. |
 | [`snippet/initialize-enhanced-rss-feed.php`](file:///Users/bbischoff/dev/f3/wordpress-theme-updates/snippet/initialize-enhanced-rss-feed.php) | `init` | Registers the custom `enhanced` RSS feed endpoint (`/feed/enhanced`). |
+| [`snippet/frontend-redirect.php`](file:///Users/bbischoff/dev/f3/wordpress-theme-updates/snippet/frontend-redirect.php) | `template_redirect`<br>`admin_init` | Deprecation redirect: 301 redirects non-admin frontend and `wp-admin` traffic to the new website (`https://f3rva.org/backblast/new`). |
 
 ---
 
